@@ -1,21 +1,26 @@
-package serviceprovider
+package services
 
 import (
+	"errors"
 	"funeral_parlour/models"
 	"funeral_parlour/models/dto"
 	"funeral_parlour/repository/serviceprovider"
+	"funeral_parlour/services/helper"
+
+	"github.com/google/uuid"
 )
 
-func NewServiceProvider(svc serviceprovider.ServiceProviderRepository) ServiceProviderService {
-	return &ServiceProvider{svc: svc}
+type ServiceProvider struct {
+	repo serviceprovider.ServiceProviderRepository
 }
 
-type ServiceProvider struct {
-	svc serviceprovider.ServiceProviderRepository
+func NewServiceProvider(repo serviceprovider.ServiceProviderRepository) ServiceProviderService {
+	return &ServiceProvider{repo: repo}
 }
 
 func (s ServiceProvider) AddServiceProvider(serviceProvider dto.FPServiceProvider) (models.FPServiceProvider, error) {
-	return s.svc.AddServiceProvider(models.FPServiceProvider{
+	return s.repo.AddServiceProvider(models.FPServiceProvider{
+		FPServiceProviderID:            uuid.NewString(),
 		FPServiceProviderName:          serviceProvider.FPServiceProviderName,
 		FPServiceProviderFspNumber:     serviceProvider.FPServiceProviderFspNumber,
 		FPServiceProviderAddress:       serviceProvider.FPServiceProviderAddress,
@@ -26,7 +31,11 @@ func (s ServiceProvider) AddServiceProvider(serviceProvider dto.FPServiceProvide
 }
 
 func (s ServiceProvider) UpdateServiceProvider(serviceProvider dto.FPServiceProvider) (models.FPServiceProvider, error) {
-	return s.svc.UpdateServiceProvider(models.FPServiceProvider{
+	isValidGuid := helper.IsValidUUID(serviceProvider.FPServiceProviderID)
+	if !isValidGuid {
+		return models.FPServiceProvider{}, errors.New("invalid ServiceProviderID")
+	}
+	return s.repo.UpdateServiceProvider(models.FPServiceProvider{
 		FPServiceProviderID:            serviceProvider.FPServiceProviderID,
 		FPServiceProviderName:          serviceProvider.FPServiceProviderName,
 		FPServiceProviderFspNumber:     serviceProvider.FPServiceProviderFspNumber,
@@ -38,13 +47,21 @@ func (s ServiceProvider) UpdateServiceProvider(serviceProvider dto.FPServiceProv
 }
 
 func (s ServiceProvider) FindAllServiceProvider() ([]models.FPServiceProvider, error) {
-	return s.svc.FindAllServiceProvider()
+	return s.repo.FindAllServiceProvider()
 }
 
-func (s ServiceProvider) DeleteServiceProvider(serviceProviderId int) error {
-	return s.svc.DeleteServiceProvider(serviceProviderId)
+func (s ServiceProvider) DeleteServiceProvider(serviceProviderId string) error {
+	isValidGuid := helper.IsValidUUID(serviceProviderId)
+	if !isValidGuid {
+		return errors.New("invalid serviceProviderId")
+	}
+	return s.repo.DeleteServiceProvider(serviceProviderId)
 }
 
-func (s ServiceProvider) FindServiceProvider(serviceProviderId int) (models.FPServiceProvider, error) {
-	return s.svc.FindServiceProvider(serviceProviderId)
+func (s ServiceProvider) FindServiceProvider(serviceProviderId string) (models.FPServiceProvider, error) {
+	isValidGuid := helper.IsValidUUID(serviceProviderId)
+	if !isValidGuid {
+		return models.FPServiceProvider{}, errors.New("invalid serviceProviderId")
+	}
+	return s.repo.FindServiceProvider(serviceProviderId)
 }

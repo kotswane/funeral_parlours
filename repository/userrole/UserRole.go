@@ -2,6 +2,7 @@ package userrole
 
 import (
 	"funeral_parlour/models"
+
 	"gorm.io/gorm"
 )
 
@@ -36,14 +37,14 @@ func (u UserRole) FindAllUserRole() ([]models.FPUserRole, error) {
 	return userRoleList, nil
 }
 
-func (u UserRole) DeleteUserRole(userRoleId int) error {
+func (u UserRole) DeleteUserRole(userRoleId string) error {
 	if err := u.db.Where("fp_usr_role_id = ?", userRoleId).Delete(&models.FPUserRole{}).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func (u UserRole) FindUserRole(userRoleId int) (models.FPUserRole, error) {
+func (u UserRole) FindUserRole(userRoleId string) (models.FPUserRole, error) {
 	var userRole models.FPUserRole
 	if err := u.db.Where("fp_usr_role_id = ?", userRoleId).First(&userRole).Error; err != nil {
 		return userRole, err

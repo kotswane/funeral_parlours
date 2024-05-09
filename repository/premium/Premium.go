@@ -2,6 +2,7 @@ package premium
 
 import (
 	"funeral_parlour/models"
+
 	"gorm.io/gorm"
 )
 
@@ -25,10 +26,9 @@ func (p Premium) UpdatePremium(premium models.FPPremium) (models.FPPremium, erro
 	updatePremium := models.FPPremium{
 		FPPremiumName:        premium.FPPremiumName,
 		FPPremiumDescription: premium.FPPremiumDescription,
-		FPPremiumServiceID:   premium.FPPremiumServiceID,
 		FPPremiumStatus:      premium.FPPremiumStatus,
 	}
-	if err := p.db.Model(&models.FPPremium{}).Where("fp_role_id = ?", premium.FPPremiumID).Updates(updatePremium).Error; err != nil {
+	if err := p.db.Model(&models.FPPremium{}).Where("fp_premium_id = ? AND fp_premium_sp_id = ?", premium.FPPremiumID, premium.FPPremiumServiceID).Updates(updatePremium).Error; err != nil {
 		return models.FPPremium{}, err
 	}
 	return premium, nil
@@ -42,16 +42,24 @@ func (p Premium) FindAllPremium() ([]models.FPPremium, error) {
 	return premiumList, nil
 }
 
-func (p Premium) DeletePremium(premiumId int) error {
-	if err := p.db.Where("fp_premium_id = ?", premiumId).Delete(&models.FPPremium{}).Error; err != nil {
+func (p Premium) DeletePremium(premiumId string, spId string) error {
+	if err := p.db.Where("fp_premium_id = ? AND fp_premium_sp_id = ?", premiumId, spId).Delete(&models.FPPremium{}).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p Premium) FindPremium(premiumId int) (models.FPPremium, error) {
+func (p Premium) FindPremium(premiumId string, spId string) (models.FPPremium, error) {
 	var premium models.FPPremium
-	if err := p.db.Where("fp_role_id = ?", premiumId).First(&premium).Error; err != nil {
+	if err := p.db.Where("fp_premium_id = ? AND fp_premium_sp_id = ?", premiumId, spId).First(&premium).Error; err != nil {
+		return premium, err
+	}
+	return premium, nil
+}
+
+func (p Premium) FindPremiumBySP(spId string) ([]models.FPPremium, error) {
+	var premium []models.FPPremium
+	if err := p.db.Where("fp_premium_sp_id = ?", spId).Find(&premium).Error; err != nil {
 		return premium, err
 	}
 	return premium, nil

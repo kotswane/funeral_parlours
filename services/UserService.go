@@ -1,4 +1,4 @@
-package user
+package services
 
 import (
 	"funeral_parlour/models"
@@ -9,6 +9,6 @@ type UserService interface {
 	AddUser(user dto.FPUser) (models.FPUser, error)
 	UpdateUser(user dto.FPUser) (models.FPUser, error)
 	FindAllUser() ([]models.FPUser, error)
-	DeleteUser(userId int) error
-	FindUser(userId int) (models.FPUser, error)
+	DeleteUser(userId string) error
+	FindUser(userId string) (models.FPUser, error)
 }

@@ -2,6 +2,7 @@ package status
 
 import (
 	"funeral_parlour/models"
+
 	"gorm.io/gorm"
 )
 
@@ -36,14 +37,14 @@ func (s Status) FindAllStatus() ([]models.FPStatus, error) {
 	return statusList, nil
 }
 
-func (s Status) DeleteStatus(statusId int) error {
+func (s Status) DeleteStatus(statusId string) error {
 	if err := s.db.Where("fp_status_id = ?", statusId).Delete(&models.FPStatus{}).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s Status) FindStatus(statusId int) (models.FPStatus, error) {
+func (s Status) FindStatus(statusId string) (models.FPStatus, error) {
 	var status models.FPStatus
 	if err := s.db.Where("fp_status_id = ?", statusId).First(&status).Error; err != nil {
 		return status, err

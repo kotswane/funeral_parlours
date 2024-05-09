@@ -1,9 +1,9 @@
 package models
 
 type FPUserRole struct {
-	FPUserRoleId     uint  `gorm:"column:fp_usr_role_id;primaryKey;autoIncrement"`
-	FPUserRoleUsrId  int64 `gorm:"column:fp_usr_id;not null"`
-	FPUserRoleRoleId uint  `gorm:"column:fp_role_id;not null"`
+	FPUserRoleId     string `gorm:"column:fp_usr_role_id;primaryKey"`
+	FPUserRoleUsrId  string `gorm:"column:fp_usr_id;not null"`
+	FPUserRoleRoleId string `gorm:"column:fp_role_id;not null"`
 }
 
 func (m FPUserRole) TableName() string {

@@ -1,21 +1,26 @@
-package user
+package services
 
 import (
+	"errors"
 	"funeral_parlour/models"
 	"funeral_parlour/models/dto"
 	"funeral_parlour/repository/user"
+	"funeral_parlour/services/helper"
+
+	"github.com/google/uuid"
 )
 
 type User struct {
-	svc user.UserRepository
+	repo user.UserRepository
 }
 
-func NewUser(svc user.UserRepository) UserService {
-	return &User{svc: svc}
+func NewUserService(repo user.UserRepository) UserService {
+	return &User{repo: repo}
 }
 
 func (u User) AddUser(user dto.FPUser) (models.FPUser, error) {
-	return u.svc.AddUser(models.FPUser{
+	return u.repo.AddUser(models.FPUser{
+		FPUserID:          uuid.NewString(),
 		FPUserFirstName:   user.FPUserFirstName,
 		FPUserMiddleName:  user.FPUserMiddleName,
 		FPUserSurname:     user.FPUserSurname,
@@ -32,8 +37,12 @@ func (u User) AddUser(user dto.FPUser) (models.FPUser, error) {
 }
 
 func (u User) UpdateUser(user dto.FPUser) (models.FPUser, error) {
-	return u.svc.UpdateUser(models.FPUser{
-		FPUserID:          user.FPUserID,
+	isValidGuid := helper.IsValidUUID(user.FPUserID)
+	if !isValidGuid {
+		return models.FPUser{}, errors.New("invalid userId")
+	}
+
+	return u.repo.UpdateUser(models.FPUser{
 		FPUserFirstName:   user.FPUserFirstName,
 		FPUserMiddleName:  user.FPUserMiddleName,
 		FPUserSurname:     user.FPUserSurname,
@@ -49,14 +58,21 @@ func (u User) UpdateUser(user dto.FPUser) (models.FPUser, error) {
 }
 
 func (u User) FindAllUser() ([]models.FPUser, error) {
-	return u.svc.FindAllUser()
+	return u.repo.FindAllUser()
 }
 
-func (u User) DeleteUser(userId int) error {
-	return u.svc.DeleteUser(userId)
+func (u User) DeleteUser(userId string) error {
+	isValidGuid := helper.IsValidUUID(userId)
+	if !isValidGuid {
+		return errors.New("invalid userId")
+	}
+	return u.repo.DeleteUser(userId)
 }
 
-func (u User) FindUser(userId int) (models.FPUser, error) {
-
-	return u.svc.FindUser(userId)
+func (u User) FindUser(userId string) (models.FPUser, error) {
+	isValidGuid := helper.IsValidUUID(userId)
+	if !isValidGuid {
+		return models.FPUser{}, errors.New("invalid userId")
+	}
+	return u.repo.FindUser(userId)
 }

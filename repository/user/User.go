@@ -3,6 +3,7 @@ package user
 import (
 	"funeral_parlour/models"
 	"funeral_parlour/models/dto"
+
 	"gorm.io/gorm"
 )
 
@@ -30,14 +31,14 @@ func (u User) AddUser(user models.FPUser) (models.FPUser, error) {
 	return user, nil
 }
 
-func (u User) UpdateUser(user models.FPUser, id uint) (models.FPUser, error) {
+func (u User) UpdateUser(user models.FPUser, id string) (models.FPUser, error) {
 	if err := u.db.Model(&models.FPUser{}).Where("usr_id = ?", id).Updates(user).Error; err != nil {
 		return models.FPUser{}, err
 	}
 	return user, nil
 }
 
-func (u User) DeleteUser(userId int) error {
+func (u User) DeleteUser(userId string) error {
 	if err := u.db.Where("usr_id = ?", userId).Delete(&models.FPUser{}).Error; err != nil {
 		return err
 	}
@@ -52,7 +53,7 @@ func (u User) FindAllUser() ([]models.FPUser, error) {
 	return userList, nil
 }
 
-func (u User) FindUser(userId int) (models.FPUser, error) {
+func (u User) FindUser(userId string) (models.FPUser, error) {
 	var user models.FPUser
 	if err := u.db.Where("usr_id = ?", userId).First(&user).Error; err != nil {
 		return user, err

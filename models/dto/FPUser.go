@@ -1,7 +1,7 @@
 package dto
 
 type FPUser struct {
-	FPUserID          uint   `json:"usr_id"`
+	FPUserID          string `json:"usr_id"`
 	FPUserFirstName   string `json:"urs_firstname"`
 	FPUserMiddleName  string `json:"usr_middle_name"`
 	FPUserSurname     string `json:"usr_surname"`
@@ -10,8 +10,8 @@ type FPUser struct {
 	FPUserPhoneNumber string `json:"usr_phonenumber"`
 	FPUserEmail       string `json:"usr_email"`
 	FPUserPassword    string `json:"usr_password"`
-	FPUserRole        int    `json:"usr_role"`
-	FPUserStatus      int    `json:"usr_status"`
-	FPUserSpID        uint   `json:"usr_sp_id"`
+	FPUserRole        string `json:"usr_role"`
+	FPUserStatus      string `json:"usr_status"`
+	FPUserSpID        string `json:"usr_sp_id"`
 	FPUSERUsername    string `json:"usr_username"`
 }

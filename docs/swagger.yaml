@@ -1,0 +1,857 @@
+definitions:
+  dto.FPAPIResponse:
+    properties:
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  dto.FPCreatePremium:
+    properties:
+      fp_premium_amount:
+        type: string
+      fp_premium_description:
+        type: string
+      fp_premium_sp_id:
+        type: string
+      fp_premium_status:
+        type: string
+    required:
+    - fp_premium_amount
+    - fp_premium_description
+    - fp_premium_sp_id
+    - fp_premium_status
+    type: object
+  dto.FPUpdatePremium:
+    properties:
+      fp_premium_amount:
+        type: string
+      fp_premium_description:
+        type: string
+      fp_premium_id:
+        type: string
+      fp_premium_sp_id:
+        type: string
+      fp_premium_status:
+        type: string
+    required:
+    - fp_premium_amount
+    - fp_premium_description
+    - fp_premium_id
+    - fp_premium_sp_id
+    - fp_premium_status
+    type: object
+  dto.FPUser:
+    properties:
+      urs_firstname:
+        type: string
+      usr_address:
+        type: string
+      usr_email:
+        type: string
+      usr_id:
+        type: string
+      usr_idnumber:
+        type: string
+      usr_middle_name:
+        type: string
+      usr_password:
+        type: string
+      usr_phonenumber:
+        type: string
+      usr_role:
+        type: string
+      usr_sp_id:
+        type: string
+      usr_status:
+        type: string
+      usr_surname:
+        type: string
+      usr_username:
+        type: string
+    type: object
+  models.FPBranch:
+    properties:
+      fpbranchID:
+        type: string
+      fpbranchName:
+        type: string
+      fpbranchServiceProviderId:
+        type: string
+    type: object
+  models.FPPremium:
+    properties:
+      fppremiumDescription:
+        type: string
+      fppremiumID:
+        type: string
+      fppremiumName:
+        type: string
+      fppremiumServiceID:
+        type: string
+      fppremiumStatus:
+        type: string
+    type: object
+  models.FPServiceProvider:
+    properties:
+      fpserviceProviderAddress:
+        type: string
+      fpserviceProviderContactNumber:
+        type: string
+      fpserviceProviderEmail:
+        type: string
+      fpserviceProviderFspNumber:
+        type: string
+      fpserviceProviderID:
+        type: string
+      fpserviceProviderName:
+        type: string
+      fpserviceProviderStatus:
+        type: string
+    type: object
+  models.FPUser:
+    properties:
+      fpuserAddress:
+        type: string
+      fpuserEmail:
+        type: string
+      fpuserFirstName:
+        type: string
+      fpuserID:
+        type: string
+      fpuserIDNumber:
+        type: string
+      fpuserMiddleName:
+        type: string
+      fpuserPassword:
+        type: string
+      fpuserPhoneNumber:
+        type: string
+      fpuserRole:
+        type: string
+      fpuserSpID:
+        type: string
+      fpuserStatus:
+        type: string
+      fpuserSurname:
+        type: string
+      fpuserusername:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /branch/add:
+    post:
+      consumes:
+      - application/json
+      description: This API Creates a new branch
+      parameters:
+      - description: New Branch
+        in: body
+        name: premium
+        required: true
+        schema:
+          $ref: '#/definitions/models.FPBranch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FPBranch'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Creates a new branch
+      tags:
+      - Branch
+  /branch/all/{spId}:
+    get:
+      consumes:
+      - application/json
+      description: This API List all Branches for a Service Provider
+      parameters:
+      - description: The id of Service Provider
+        in: path
+        name: spId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.FPBranch'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API List all Branches for a Service Provider
+      tags:
+      - Branch
+  /branch/delete/{branchId}/{spId}:
+    delete:
+      consumes:
+      - application/json
+      description: This API Delete branch by ID
+      parameters:
+      - description: The id of Branch
+        in: path
+        name: branchId
+        required: true
+        type: string
+      - description: The id of ServiceProvider
+        in: path
+        name: spId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Delete branch by ID
+      tags:
+      - Branch
+  /branch/find/{branchId}/{spId}:
+    get:
+      consumes:
+      - application/json
+      description: This API Finds branch by ID
+      parameters:
+      - description: The id of branch
+        in: path
+        name: branchId
+        required: true
+        type: string
+      - description: The id of ServiceProvider
+        in: path
+        name: spId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FPBranch'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Finds branch by ID
+      tags:
+      - Branch
+  /branch/update:
+    put:
+      consumes:
+      - application/json
+      description: This API Update existing branch
+      parameters:
+      - description: Update Branch
+        in: body
+        name: branch
+        required: true
+        schema:
+          $ref: '#/definitions/models.FPBranch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FPBranch'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Update existing branch
+      tags:
+      - Branch
+  /premium:
+    get:
+      consumes:
+      - application/json
+      description: This API List all premiums
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.FPPremium'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API List all premiums
+      tags:
+      - Premium
+  /premium/add:
+    post:
+      consumes:
+      - application/json
+      description: This API Creates a new premium
+      parameters:
+      - description: New Premium
+        in: body
+        name: premium
+        required: true
+        schema:
+          $ref: '#/definitions/dto.FPCreatePremium'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FPPremium'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Creates a new premium
+      tags:
+      - Premium
+  /premium/delete/{id}/{spId}:
+    delete:
+      consumes:
+      - application/json
+      description: This API Delete premium by ID
+      parameters:
+      - description: The id of FPPremium
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The id of ServiceProvider
+        in: path
+        name: spId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Delete premium by ID
+      tags:
+      - Premium
+  /premium/find/{id}/{spId}:
+    get:
+      consumes:
+      - application/json
+      description: This API Finds premium by ID
+      parameters:
+      - description: The id of FPPremium
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The id of FPPremiumServiceProvider
+        in: path
+        name: spId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FPPremium'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Finds premium by ID
+      tags:
+      - Premium
+  /premium/findbysp/{spId}:
+    get:
+      consumes:
+      - application/json
+      description: This API Finds premium by ServiceProviderID
+      parameters:
+      - description: The id of FPPremiumServiceProvider
+        in: path
+        name: spId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.FPPremium'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Finds premium by ServiceProviderID
+      tags:
+      - Premium
+  /premium/update:
+    put:
+      consumes:
+      - application/json
+      description: This API Update existing premium
+      parameters:
+      - description: Update Premium
+        in: body
+        name: premium
+        required: true
+        schema:
+          $ref: '#/definitions/dto.FPUpdatePremium'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FPPremium'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Update existing premium
+      tags:
+      - Premium
+  /serviceprovider:
+    get:
+      consumes:
+      - application/json
+      description: This API List all Service Providers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.FPServiceProvider'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API List all Service Providers
+      tags:
+      - Service Provider
+  /serviceprovider/{serviceproviderId}:
+    get:
+      consumes:
+      - application/json
+      description: This API Finds Service Provider by ID
+      parameters:
+      - description: The id of Service Provider
+        in: path
+        name: serviceProviderId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FPPremium'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Finds Service Provider by ID
+      tags:
+      - Service Provider
+  /serviceprovider/add:
+    post:
+      consumes:
+      - application/json
+      description: This API Creates a new Service Provider
+      parameters:
+      - description: New Service Provider
+        in: body
+        name: serviceprovider
+        required: true
+        schema:
+          $ref: '#/definitions/models.FPServiceProvider'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FPServiceProvider'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Creates a new Service Provider
+      tags:
+      - Service Provider
+  /serviceprovider/delete/{serviceproviderId}:
+    delete:
+      consumes:
+      - application/json
+      description: This API Delete Service Provider by ID
+      parameters:
+      - description: The id of ServiceProvider
+        in: path
+        name: serviceProviderId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Delete Service Provider by ID
+      tags:
+      - Service Provider
+  /serviceprovider/update:
+    post:
+      consumes:
+      - application/json
+      description: This API Updates a Service Provider
+      parameters:
+      - description: Existing Service Provider
+        in: body
+        name: serviceprovider
+        required: true
+        schema:
+          $ref: '#/definitions/models.FPServiceProvider'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FPServiceProvider'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Updates a Service Provider
+      tags:
+      - Service Provider
+  /user:
+    get:
+      consumes:
+      - application/json
+      description: This API Finds All Users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.FPUser'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Finds All Users
+      tags:
+      - User
+  /user/add:
+    post:
+      consumes:
+      - application/json
+      description: This API Creates a new User
+      parameters:
+      - description: New User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.FPUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.FPUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Creates a new User
+      tags:
+      - User
+  /user/delete/{userId}:
+    delete:
+      consumes:
+      - application/json
+      description: This API deletes a User
+      parameters:
+      - description: The id of a user
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API deletes a User
+      tags:
+      - User
+  /user/find/{userId}:
+    get:
+      consumes:
+      - application/json
+      description: This API Finds User by ID
+      parameters:
+      - description: The id of a user
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FPUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Finds User by ID
+      tags:
+      - User
+  /user/update:
+    post:
+      consumes:
+      - application/json
+      description: This API Updates a User
+      parameters:
+      - description: Existing User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.FPUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.FPUser'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/dto.FPAPIResponse'
+      summary: This API Updates a User
+      tags:
+      - User
+swagger: "2.0"

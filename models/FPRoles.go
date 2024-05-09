@@ -1,7 +1,7 @@
 package models
 
 type FPRoles struct {
-	FPRoleID   uint   `gorm:"column:fp_role_id;primaryKey;autoIncrement"`
+	FPRoleID   string `gorm:"column:fp_role_id;primaryKey"`
 	FPRoleName string `gorm:"column:fp_role_name"`
 }
 

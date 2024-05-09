@@ -6,9 +6,10 @@ import (
 )
 
 type PremiumService interface {
-	AddPremium(premium dto.FPPremium) (models.FPPremium, error)
-	UpdatePremium(premium dto.FPPremium) (models.FPPremium, error)
+	AddPremium(premium dto.FPCreatePremium) (models.FPPremium, error)
+	UpdatePremium(premium dto.FPUpdatePremium) (models.FPPremium, error)
 	FindAllPremium() ([]models.FPPremium, error)
-	DeletePremium(premiumId int) error
-	FindPremium(premiumId int) (models.FPPremium, error)
+	DeletePremium(premiumId string, spId string) error
+	FindPremium(premiumId string, spId string) (models.FPPremium, error)
+	FindPremiumBySP(spId string) ([]models.FPPremium, error)
 }

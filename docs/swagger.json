@@ -1,0 +1,1301 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/branch/add": {
+            "post": {
+                "description": "This API Creates a new branch",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Branch"
+                ],
+                "summary": "This API Creates a new branch",
+                "parameters": [
+                    {
+                        "description": "New Branch",
+                        "name": "premium",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.FPBranch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FPBranch"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/branch/all/{spId}": {
+            "get": {
+                "description": "This API List all Branches for a Service Provider",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Branch"
+                ],
+                "summary": "This API List all Branches for a Service Provider",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The id of Service Provider",
+                        "name": "spId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.FPBranch"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/branch/delete/{branchId}/{spId}": {
+            "delete": {
+                "description": "This API Delete branch by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Branch"
+                ],
+                "summary": "This API Delete branch by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The id of Branch",
+                        "name": "branchId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "The id of ServiceProvider",
+                        "name": "spId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/branch/find/{branchId}/{spId}": {
+            "get": {
+                "description": "This API Finds branch by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Branch"
+                ],
+                "summary": "This API Finds branch by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The id of branch",
+                        "name": "branchId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "The id of ServiceProvider",
+                        "name": "spId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FPBranch"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/branch/update": {
+            "put": {
+                "description": "This API Update existing branch",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Branch"
+                ],
+                "summary": "This API Update existing branch",
+                "parameters": [
+                    {
+                        "description": "Update Branch",
+                        "name": "branch",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.FPBranch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FPBranch"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/premium": {
+            "get": {
+                "description": "This API List all premiums",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Premium"
+                ],
+                "summary": "This API List all premiums",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.FPPremium"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/premium/add": {
+            "post": {
+                "description": "This API Creates a new premium",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Premium"
+                ],
+                "summary": "This API Creates a new premium",
+                "parameters": [
+                    {
+                        "description": "New Premium",
+                        "name": "premium",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPCreatePremium"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FPPremium"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/premium/delete/{id}/{spId}": {
+            "delete": {
+                "description": "This API Delete premium by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Premium"
+                ],
+                "summary": "This API Delete premium by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The id of FPPremium",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "The id of ServiceProvider",
+                        "name": "spId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/premium/find/{id}/{spId}": {
+            "get": {
+                "description": "This API Finds premium by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Premium"
+                ],
+                "summary": "This API Finds premium by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The id of FPPremium",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "The id of FPPremiumServiceProvider",
+                        "name": "spId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FPPremium"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/premium/findbysp/{spId}": {
+            "get": {
+                "description": "This API Finds premium by ServiceProviderID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Premium"
+                ],
+                "summary": "This API Finds premium by ServiceProviderID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The id of FPPremiumServiceProvider",
+                        "name": "spId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.FPPremium"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/premium/update": {
+            "put": {
+                "description": "This API Update existing premium",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Premium"
+                ],
+                "summary": "This API Update existing premium",
+                "parameters": [
+                    {
+                        "description": "Update Premium",
+                        "name": "premium",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPUpdatePremium"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FPPremium"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/serviceprovider": {
+            "get": {
+                "description": "This API List all Service Providers",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Service Provider"
+                ],
+                "summary": "This API List all Service Providers",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.FPServiceProvider"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/serviceprovider/add": {
+            "post": {
+                "description": "This API Creates a new Service Provider",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Service Provider"
+                ],
+                "summary": "This API Creates a new Service Provider",
+                "parameters": [
+                    {
+                        "description": "New Service Provider",
+                        "name": "serviceprovider",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.FPServiceProvider"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FPServiceProvider"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/serviceprovider/delete/{serviceproviderId}": {
+            "delete": {
+                "description": "This API Delete Service Provider by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Service Provider"
+                ],
+                "summary": "This API Delete Service Provider by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The id of ServiceProvider",
+                        "name": "serviceProviderId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/serviceprovider/update": {
+            "post": {
+                "description": "This API Updates a Service Provider",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Service Provider"
+                ],
+                "summary": "This API Updates a Service Provider",
+                "parameters": [
+                    {
+                        "description": "Existing Service Provider",
+                        "name": "serviceprovider",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.FPServiceProvider"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FPServiceProvider"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/serviceprovider/{serviceproviderId}": {
+            "get": {
+                "description": "This API Finds Service Provider by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Service Provider"
+                ],
+                "summary": "This API Finds Service Provider by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The id of Service Provider",
+                        "name": "serviceProviderId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FPPremium"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "description": "This API Finds All Users",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "This API Finds All Users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.FPUser"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/add": {
+            "post": {
+                "description": "This API Creates a new User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "This API Creates a new User",
+                "parameters": [
+                    {
+                        "description": "New User",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPUser"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/delete/{userId}": {
+            "delete": {
+                "description": "This API deletes a User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "This API deletes a User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The id of a user",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/find/{userId}": {
+            "get": {
+                "description": "This API Finds User by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "This API Finds User by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The id of a user",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FPUser"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update": {
+            "post": {
+                "description": "This API Updates a User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "This API Updates a User",
+                "parameters": [
+                    {
+                        "description": "Existing User",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPUser"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/dto.FPAPIResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dto.FPAPIResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "statusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "dto.FPCreatePremium": {
+            "type": "object",
+            "required": [
+                "fp_premium_amount",
+                "fp_premium_description",
+                "fp_premium_sp_id",
+                "fp_premium_status"
+            ],
+            "properties": {
+                "fp_premium_amount": {
+                    "type": "string"
+                },
+                "fp_premium_description": {
+                    "type": "string"
+                },
+                "fp_premium_sp_id": {
+                    "type": "string"
+                },
+                "fp_premium_status": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.FPUpdatePremium": {
+            "type": "object",
+            "required": [
+                "fp_premium_amount",
+                "fp_premium_description",
+                "fp_premium_id",
+                "fp_premium_sp_id",
+                "fp_premium_status"
+            ],
+            "properties": {
+                "fp_premium_amount": {
+                    "type": "string"
+                },
+                "fp_premium_description": {
+                    "type": "string"
+                },
+                "fp_premium_id": {
+                    "type": "string"
+                },
+                "fp_premium_sp_id": {
+                    "type": "string"
+                },
+                "fp_premium_status": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.FPUser": {
+            "type": "object",
+            "properties": {
+                "urs_firstname": {
+                    "type": "string"
+                },
+                "usr_address": {
+                    "type": "string"
+                },
+                "usr_email": {
+                    "type": "string"
+                },
+                "usr_id": {
+                    "type": "string"
+                },
+                "usr_idnumber": {
+                    "type": "string"
+                },
+                "usr_middle_name": {
+                    "type": "string"
+                },
+                "usr_password": {
+                    "type": "string"
+                },
+                "usr_phonenumber": {
+                    "type": "string"
+                },
+                "usr_role": {
+                    "type": "string"
+                },
+                "usr_sp_id": {
+                    "type": "string"
+                },
+                "usr_status": {
+                    "type": "string"
+                },
+                "usr_surname": {
+                    "type": "string"
+                },
+                "usr_username": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.FPBranch": {
+            "type": "object",
+            "properties": {
+                "fpbranchID": {
+                    "type": "string"
+                },
+                "fpbranchName": {
+                    "type": "string"
+                },
+                "fpbranchServiceProviderId": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.FPPremium": {
+            "type": "object",
+            "properties": {
+                "fppremiumDescription": {
+                    "type": "string"
+                },
+                "fppremiumID": {
+                    "type": "string"
+                },
+                "fppremiumName": {
+                    "type": "string"
+                },
+                "fppremiumServiceID": {
+                    "type": "string"
+                },
+                "fppremiumStatus": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.FPServiceProvider": {
+            "type": "object",
+            "properties": {
+                "fpserviceProviderAddress": {
+                    "type": "string"
+                },
+                "fpserviceProviderContactNumber": {
+                    "type": "string"
+                },
+                "fpserviceProviderEmail": {
+                    "type": "string"
+                },
+                "fpserviceProviderFspNumber": {
+                    "type": "string"
+                },
+                "fpserviceProviderID": {
+                    "type": "string"
+                },
+                "fpserviceProviderName": {
+                    "type": "string"
+                },
+                "fpserviceProviderStatus": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.FPUser": {
+            "type": "object",
+            "properties": {
+                "fpuserAddress": {
+                    "type": "string"
+                },
+                "fpuserEmail": {
+                    "type": "string"
+                },
+                "fpuserFirstName": {
+                    "type": "string"
+                },
+                "fpuserID": {
+                    "type": "string"
+                },
+                "fpuserIDNumber": {
+                    "type": "string"
+                },
+                "fpuserMiddleName": {
+                    "type": "string"
+                },
+                "fpuserPassword": {
+                    "type": "string"
+                },
+                "fpuserPhoneNumber": {
+                    "type": "string"
+                },
+                "fpuserRole": {
+                    "type": "string"
+                },
+                "fpuserSpID": {
+                    "type": "string"
+                },
+                "fpuserStatus": {
+                    "type": "string"
+                },
+                "fpuserSurname": {
+                    "type": "string"
+                },
+                "fpuserusername": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

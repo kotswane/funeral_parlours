@@ -11,13 +11,14 @@ func RegisterPremiumRoutes(r *gin.Engine, ctrl controllers.Premium) {
 
 	v1 := r.Group("/api/v1")
 	{
-		books := v1.Group("/premium")
+		premium := v1.Group("premium")
 		{
-			books.POST("/add", ctrl.AddPremium)
-			books.GET("/delete/:id", ctrl.DeletePremium)
-			books.GET("/update", ctrl.UpdatePremium)
-			books.PUT("", ctrl.FindAllPremium)
-			books.DELETE("/find/:id", ctrl.FindPremium)
+			premium.POST("/add", ctrl.AddPremium)
+			premium.DELETE("/delete/:id/:spId", ctrl.DeletePremium)
+			premium.PUT("/update", ctrl.UpdatePremium)
+			premium.GET("", ctrl.FindAllPremium)
+			premium.GET("/find/:id/:spId", ctrl.FindPremium)
+			premium.GET("/findbysp/:spId", ctrl.FindPremiumBySP)
 		}
 	}
 }

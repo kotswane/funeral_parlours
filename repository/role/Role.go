@@ -2,6 +2,7 @@ package role
 
 import (
 	"funeral_parlour/models"
+
 	"gorm.io/gorm"
 )
 
@@ -37,14 +38,14 @@ func (r Role) FindAllRoles() ([]models.FPRoles, error) {
 	return roleList, nil
 }
 
-func (r Role) DeleteRole(statusId int) error {
+func (r Role) DeleteRole(statusId string) error {
 	if err := r.db.Where("fp_role_id = ?", statusId).Delete(&models.FPRoles{}).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r Role) FindRole(statusId int) (models.FPRoles, error) {
+func (r Role) FindRole(statusId string) (models.FPRoles, error) {
 	var role models.FPRoles
 	if err := r.db.Where("fp_role_id = ?", statusId).First(&role).Error; err != nil {
 		return models.FPRoles{}, err
